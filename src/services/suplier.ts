@@ -8,6 +8,9 @@ export const suplierService = {
   post(data: any) {
     return api.post("/suplier", data);
   },
+  put(request: { id: number; body: any }) {
+    return api.put("/suplier/" + request.id, request.body);
+  },
   delete(id: number) {
     return api.delete("/suplier/" + id);
   },

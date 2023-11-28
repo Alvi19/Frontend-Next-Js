@@ -23,6 +23,16 @@ const Suplier = () => {
     },
   });
 
+  const { mutate: editItem } = useMutation({
+    mutationFn: suplierService.put,
+    onSuccess: () => {
+      (document?.getElementById("my_modal_1") as any).close();
+      queryClient.invalidateQueries({ queryKey: ["list-suplier"] });
+      formik.resetForm();
+      setSelectData(null);
+    },
+  });
+
   const { mutate: deleteItem } = useMutation({
     mutationFn: suplierService.delete,
     onSuccess: () => {
@@ -38,9 +48,25 @@ const Suplier = () => {
       namaspl: "",
     },
     onSubmit: async () => {
-      mutate(formik.values);
+      if (selectData) {
+        editItem({
+          id: selectData.id,
+          body: formik.values,
+        });
+      } else {
+        mutate(formik.values);
+      }
     },
   });
+
+  const openDialogForm = (data?: SuplierType | null) => {
+    if (data) {
+      setSelectData(data);
+      formik.setFieldValue("kodespl", data.kodespl);
+      formik.setFieldValue("namaspl", data.namaspl);
+    }
+    (document?.getElementById("my_modal_1") as any).showModal();
+  };
 
   return (
     <Layout>
@@ -58,7 +84,9 @@ const Suplier = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Tambah Data Suplier</h3>
+          <h3 className="font-bold text-lg">
+            {selectData ? "Edit" : "Tambah"} Data Suplier
+          </h3>
           <div className="py-4">
             <form onSubmit={formik.handleSubmit} action="">
               <div className="form-control w-full ">
@@ -90,7 +118,15 @@ const Suplier = () => {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-xl">Close</button>
+              <button
+                onClick={() => {
+                  formik.resetForm();
+                  setSelectData(null);
+                }}
+                className="btn btn-xl"
+              >
+                Close
+              </button>
             </form>
           </div>
         </div>
@@ -133,7 +169,10 @@ const Suplier = () => {
                   <td>{item.kodespl}</td>
                   <td>{item.namaspl}</td>
                   <td>
-                    <button className="btn btn-primary btn-sm mr-2">
+                    <button
+                      onClick={() => openDialogForm(item)}
+                      className="btn btn-primary btn-sm mr-2"
+                    >
                       Edit
                     </button>
                     <button

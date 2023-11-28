@@ -11,17 +11,10 @@ const Layout = ({ children }: props) => {
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-          {/* Page content here */}
-          <label
-            htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
-          >
-            Open drawer
-          </label>
           <div className="w-full navbar bg-base-300">
             <div className="flex-none lg:hidden">
               <label
-                htmlFor="my-drawer-3"
+                htmlFor="my-drawer-2"
                 aria-label="open sidebar"
                 className="btn btn-square btn-ghost"
               >
@@ -42,15 +35,7 @@ const Layout = ({ children }: props) => {
             </div>
             <div className="flex-1 px-2 mx-2">Navbar Title</div>
             <div className="flex-none hidden lg:block">
-              <ul className="menu menu-horizontal">
-                {/* Navbar menu content here */}
-                <li>
-                  <a>Navbar Item 1</a>
-                </li>
-                <li>
-                  <a>Navbar Item 2</a>
-                </li>
-              </ul>
+              <ul className="menu menu-horizontal"></ul>
             </div>
           </div>
           <div className="p-8 min-h-[85vh]">{children}</div>

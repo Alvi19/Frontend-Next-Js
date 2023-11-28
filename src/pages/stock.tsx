@@ -29,6 +29,16 @@ const Stock = () => {
     },
   });
 
+  const { mutate: editItem } = useMutation({
+    mutationFn: stockService.put,
+    onSuccess: () => {
+      (document?.getElementById("my_modal_1") as any).close();
+      queryClient.invalidateQueries({ queryKey: ["list-stock"] });
+      formik.resetForm();
+      setSelectData(null);
+    },
+  });
+
   const { mutate: deleteItem } = useMutation({
     mutationFn: stockService.delete,
     onSuccess: () => {
@@ -44,9 +54,25 @@ const Stock = () => {
       qtybeli: "",
     },
     onSubmit: async () => {
-      mutate(formik.values);
+      if (selectData) {
+        editItem({
+          id: selectData.id,
+          body: formik.values,
+        });
+      } else {
+        mutate(formik.values);
+      }
     },
   });
+
+  const openDialogForm = (data?: StockType | null) => {
+    if (data) {
+      setSelectData(data);
+      formik.setFieldValue("kodebrg", data.kodebrg);
+      formik.setFieldValue("qtybeli", data.qtybeli);
+    }
+    (document?.getElementById("my_modal_1") as any).showModal();
+  };
 
   return (
     <Layout>
@@ -64,7 +90,9 @@ const Stock = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Tambah Data Stock</h3>
+          <h3 className="font-bold text-lg">
+            {selectData ? "Edit" : "Tambah"} Data Stock
+          </h3>
           <div className="py-4">
             <form onSubmit={formik.handleSubmit} action="">
               <div className="form-control w-full ">
@@ -102,7 +130,15 @@ const Stock = () => {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-xl">Close</button>
+              <button
+                onClick={() => {
+                  formik.resetForm();
+                  setSelectData(null);
+                }}
+                className="btn btn-xl"
+              >
+                Close
+              </button>
             </form>
           </div>
         </div>
@@ -144,7 +180,10 @@ const Stock = () => {
                   <td>{item.kodebrg}</td>
                   <td>{item.qtybeli}</td>
                   <td>
-                    <button className="btn btn-primary btn-sm mr-2">
+                    <button
+                      onClick={() => openDialogForm(item)}
+                      className="btn btn-primary btn-sm mr-2"
+                    >
                       Edit
                     </button>
                     <button

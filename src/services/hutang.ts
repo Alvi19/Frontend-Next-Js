@@ -8,6 +8,9 @@ export const hutangService = {
   post(data: any) {
     return api.post("/hutang", data);
   },
+  put(request: { id: number; body: any }) {
+    return api.put("/hutang/" + request.id, request.body);
+  },
   delete(id: number) {
     return api.delete("/hutang/" + id);
   },
