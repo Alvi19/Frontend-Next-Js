@@ -41,7 +41,7 @@ const Barang = () => {
     mutationFn: hutangService.put,
     onSuccess: () => {
       (document?.getElementById("my_modal_1") as any).close();
-      queryClient.invalidateQueries({ queryKey: ["list-barang"] });
+      queryClient.invalidateQueries({ queryKey: ["list-hutang"] });
       formik.resetForm();
       setSelectData(null);
     },
@@ -146,6 +146,16 @@ const Barang = () => {
                   name="tglbeli"
                   onChange={formik.handleChange}
                   value={formik.values.tglbeli}
+                  className="input input-bordered w-full"
+                />
+                <label className="label">
+                  <span className="label-text">Total Hutang</span>
+                </label>
+                <input
+                  type="number"
+                  name="totalhutang"
+                  onChange={formik.handleChange}
+                  value={formik.values.totalhutang}
                   className="input input-bordered w-full"
                 />
               </div>

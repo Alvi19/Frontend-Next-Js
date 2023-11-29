@@ -39,7 +39,7 @@ const Pembelian = () => {
   });
 
   const { mutate: editItem } = useMutation({
-    mutationFn: barangService.put,
+    mutationFn: pembelianService.put,
     onSuccess: () => {
       (document?.getElementById("my_modal_1") as any).close();
       queryClient.invalidateQueries({ queryKey: ["list-pembelian"] });
