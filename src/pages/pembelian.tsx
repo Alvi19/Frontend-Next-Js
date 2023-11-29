@@ -109,12 +109,9 @@ const Pembelian = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => openDialogForm()}
-          >
-            Tambah Pembelian
-          </button>
+          <h3 className="font-bold text-lg">
+            {selectData ? "Edit" : "Tambah"} Data Pembelian
+          </h3>
           <div className="py-4">
             <form onSubmit={formik.handleSubmit} action="">
               <div className="form-control w-full ">

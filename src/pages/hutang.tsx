@@ -117,6 +117,7 @@ const Barang = () => {
                   value={formik.values.notransaksi}
                   className="select select-bordered w-full"
                 >
+                  <option value=""></option>
                   {(transaksi?.data.data ?? []).map((item, index) => (
                     <option key={index} value={item.notransaksi}>
                       {item.notransaksi}
@@ -132,6 +133,7 @@ const Barang = () => {
                   value={formik.values.kodespl}
                   className="select select-bordered w-full"
                 >
+                  <option value=""></option>
                   {(suplier?.data.data ?? []).map((item, index) => (
                     <option key={index} value={item.kodespl}>
                       {item.kodespl}
