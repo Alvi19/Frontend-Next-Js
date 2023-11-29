@@ -8,6 +8,9 @@ export const pembelianService = {
   post(data: any) {
     return api.post("/pembelian", data);
   },
+  put(request: { id: number; body: any }) {
+    return api.put("/pembeli/" + request.id, request.body);
+  },
   delete(id: number) {
     return api.delete("/pembeli/" + id);
   },

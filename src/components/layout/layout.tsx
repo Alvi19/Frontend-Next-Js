@@ -33,10 +33,6 @@ const Layout = ({ children }: props) => {
                 </svg>
               </label>
             </div>
-            <div className="flex-1 px-2 mx-2">Navbar Title</div>
-            <div className="flex-none hidden lg:block">
-              <ul className="menu menu-horizontal"></ul>
-            </div>
           </div>
           <div className="p-8 min-h-[85vh]">{children}</div>
           <footer className="footer footer-center p-4 bg-base-300 text-base-content">

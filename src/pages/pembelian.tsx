@@ -38,6 +38,16 @@ const Pembelian = () => {
     },
   });
 
+  const { mutate: editItem } = useMutation({
+    mutationFn: barangService.put,
+    onSuccess: () => {
+      (document?.getElementById("my_modal_1") as any).close();
+      queryClient.invalidateQueries({ queryKey: ["list-pembelian"] });
+      formik.resetForm();
+      setSelectData(null);
+    },
+  });
+
   const { mutate: deleteItem } = useMutation({
     mutationFn: pembelianService.delete,
     onSuccess: () => {
@@ -58,9 +68,30 @@ const Pembelian = () => {
       totalhutang: "",
     },
     onSubmit: async () => {
-      mutate(formik.values);
+      if (selectData) {
+        editItem({
+          id: selectData.id,
+          body: formik.values,
+        });
+      } else {
+        mutate(formik.values);
+      }
     },
   });
+
+  const openDialogForm = (data?: PembelianType | null) => {
+    if (data) {
+      setSelectData(data);
+      // formik.setFieldValue("kodespl", data.kodespl);
+      formik.setFieldValue("tglbeli", data.tglbeli);
+      formik.setFieldValue("kodebrg", data.kodebrg);
+      formik.setFieldValue("hargabeli", data.hargabeli);
+      formik.setFieldValue("qty", data.qty);
+      formik.setFieldValue("diskon", data.diskon);
+      // formik.setFieldValue("totalhutang", data.totalhutang);
+    }
+    (document?.getElementById("my_modal_1") as any).showModal();
+  };
 
   return (
     <Layout>
@@ -78,7 +109,12 @@ const Pembelian = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Tambah Data Pembelian</h3>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => openDialogForm()}
+          >
+            Tambah Pembelian
+          </button>
           <div className="py-4">
             <form onSubmit={formik.handleSubmit} action="">
               <div className="form-control w-full ">
@@ -225,7 +261,10 @@ const Pembelian = () => {
                   <td>{formatRp(item.diskonrp)}</td>
                   <td>{formatRp(item.totalrp)}</td>
                   <td>
-                    <button className="btn btn-primary btn-sm mr-2">
+                    <button
+                      onClick={() => openDialogForm(item)}
+                      className="btn btn-primary btn-sm mr-2"
+                    >
                       Edit
                     </button>
                     <button

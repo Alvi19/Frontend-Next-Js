@@ -146,7 +146,7 @@ const Stock = () => {
 
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Tambah Data Barang</h3>
+          <h3 className="font-bold text-lg">Hapus Data Barang</h3>
           <div className="py-4">Apakah anda ingin menghapus data ini ?</div>
           <div className="modal-action">
             <form method="dialog">
