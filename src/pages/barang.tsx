@@ -79,7 +79,9 @@ const Barang = () => {
         <h1 className="mr-2">Data Barang</h1>
         <button
           className="btn btn-primary btn-sm"
-          onClick={() => openDialogForm()}
+          onClick={() =>
+            (document?.getElementById("my_modal_1") as any).showModal()
+          }
         >
           Tambah Barang
         </button>

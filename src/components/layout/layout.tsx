@@ -34,7 +34,7 @@ const Layout = ({ children }: props) => {
               </label>
             </div>
           </div>
-          <div className="p-8 min-h-[85vh]">{children}</div>
+          <div className="p-8 min-h-[86vh]">{children}</div>
           <footer className="footer footer-center p-4 bg-base-300 text-base-content">
             <aside>
               <p>
@@ -51,6 +51,11 @@ const Layout = ({ children }: props) => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
+            <li>
+              <Link href={"/dashboard"} className="font-bold text-lg">
+                Dashboard
+              </Link>
+            </li>
             <li>
               <Link href={"/barang"} className="font-bold text-lg">
                 Barang

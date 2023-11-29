@@ -6,7 +6,7 @@ const Login = () => {
     <div className="flex justify-center h-screen items-center">
       <div>
         <img
-          className="rounded-xl"
+          className="rounded-xl mr-5"
           style={{ height: "380px" }}
           src="https://sumihai.co.id/wp-content/uploads/2018/06/pos-2C.jpg"
           alt=""
@@ -30,7 +30,7 @@ const Login = () => {
           </label>
           <input
             type="password"
-            placeholder="******"
+            placeholder="********"
             className="input input-bordered w-full"
             value={"password"}
           />
